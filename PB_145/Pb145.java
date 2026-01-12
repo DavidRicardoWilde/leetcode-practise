@@ -14,4 +14,33 @@ public class Pb145 {
         postorderTraversalRecursion(node.right, list);
         list.add(node.val);
     }
+
+    public List<Integer> postorderTraversalV2(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+
+        if  (root == null) return result;
+
+        Deque<TreeNode> stack = new LinkedList<>();
+        Deque<TreeNode> helpStack = new LinkedList<>();
+
+        stack.push(root);
+
+        while(!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            helpStack.push(node);
+
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+
+            if (node.right != null) stack.push(node.right);
+        }
+
+        while(!helpStack.isEmpty()) {
+            TreeNode node = helpStack.pop();
+            result.add(node.val);
+        }
+
+        return result;
+    }
 }
